@@ -1,0 +1,10 @@
+{
+  "name": "Remix Off Script Life OS-ios",
+  "description": "An AI-powered personality diagnostic app that tracks your daily chaos and offers witty, brutally honest self-reflection.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

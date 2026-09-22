@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #f7f4ed;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .font-serif-display {
+    font-family: 'Fraunces', Georgia, serif;
+  }
+
+  .font-mono-code {
+    font-family: 'DM Mono', monospace;
+  }
+
+  .font-display-punch {
+    font-family: 'Syne', sans-serif;
+  }
+}
+
+/* Custom Paper Texture and Planner Style Utilities */
+.bg-cream-canvas {
+  background-color: #faf7f0;
+}
+
+.bg-warm-card {
+  background-color: #ffffff;
+}
+
+.stamp-border {
+  border: 2px dashed #e11d48;
+}
+
+.lined-paper {
+  background-size: 100% 28px;
+  background-image: linear-gradient(to bottom, transparent 27px, #e2e8f0 28px);
+  line-height: 28px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1ede4;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ==========================================================================
+   PRINT MEDIA QUERIES & STRUCTURED PDF EXPORT
+   ========================================================================== */
+@media print {
+  @page {
+    margin: 1.2cm 1cm 1.2cm 1cm;
+    size: auto;
+  }
+
+  html, body {
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: #0f172a !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Global hide for interactive navigation, sticky bars, floating elements */
+  header,
+  footer,
+  nav,
+  .print\:hidden,
+  .print-hidden,
+  [data-print-hidden="true"],
+  .fixed,
+  #voice-to-text-rant-btn,
+  #refresh-mantra-standard-btn,
+  #refresh-mantra-harder-btn,
+  #adopt-morning-intention-btn,
+  #copy-mantra-btn {
+    display: none !important;
+  }
+
+  /* Show print-only elements */
+  .print\:block {
+    display: block !important;
+  }
+  .print\:inline-block {
+    display: inline-block !important;
+  }
+  .print\:flex {
+    display: flex !important;
+  }
+
+  /* Avoid splitting logical blocks across paper pages */
+  .print-break-avoid,
+  .break-inside-avoid,
+  .rounded-2xl,
+  .rounded-3xl,
+  form,
+  .bg-white {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Force clean contrast borders and high-legibility cards */
+  .bg-white,
+  .bg-\[\#faf7f0\],
+  .bg-cream-canvas {
+    background-color: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  .border-stone-800,
+  .border-stone-300,
+  .border-stone-200 {
+    border-color: #cbd5e1 !important;
+  }
+
+  /* Clean up inputs and textareas so text displays completely */
+  input[type="text"],
+  textarea,
+  select {
+    border: 1px solid #cbd5e1 !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+}
