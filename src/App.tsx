@@ -10,6 +10,7 @@ import { WeeklyDebriefView } from './components/WeeklyDebriefView';
 import { MonthlyMoneyMapView } from './components/MonthlyMoneyMapView';
 import { ThemesGalleryView } from './components/ThemesGalleryView';
 import { StickersSheetModal } from './components/StickersSheetModal';
+import { SocialShareModal } from './components/SocialShareModal';
 import { CoverArtView } from './components/CoverArtView';
 import { ChaosTrendline } from './components/ChaosTrendline';
 import {
@@ -32,6 +33,8 @@ export default function App() {
   });
   const [activeTab, setActiveTab] = useState<'cover' | 'daily' | 'trendline' | 'diagnostic' | 'goals' | 'identity' | 'weekly' | 'money' | 'themes'>('daily');
   const [stickersModalOpen, setStickersModalOpen] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [shareContext, setShareContext] = useState<'daily' | 'identity' | 'mantra' | 'antigoals' | 'diagnostic'>('daily');
   const [allEntries, setAllEntries] = useState<DailyEntry[]>([]);
 
   // Core data states
@@ -82,6 +85,11 @@ export default function App() {
   const [antiGoals, setAntiGoals] = useState<AntiGoal[]>([]);
   const [isDiagnosing, setIsDiagnosing] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const handleOpenShare = (context?: 'daily' | 'identity' | 'mantra' | 'antigoals' | 'diagnostic') => {
+    if (context) setShareContext(context);
+    setShareModalOpen(true);
+  };
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -282,6 +290,7 @@ export default function App() {
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
         onOpenStickers={() => setStickersModalOpen(true)}
+        onOpenShare={() => handleOpenShare(activeTab === 'diagnostic' ? 'diagnostic' : 'daily')}
         onRefreshData={loadData}
         isDiagnosing={isDiagnosing}
       />
@@ -497,6 +506,7 @@ export default function App() {
               onAddAntiGoal={handleAddAntiGoal}
               onToggleAntiGoal={handleToggleAntiGoal}
               onDeleteAntiGoal={handleDeleteAntiGoal}
+              onOpenShare={handleOpenShare}
             />
           )}
 
@@ -549,6 +559,19 @@ export default function App() {
           handleSaveDailyEntry({ evening_notes: stamped });
           showToast(`Stamped ${stk.label} to field notes!`);
         }}
+      />
+
+      {/* SOCIAL SHARE MODAL */}
+      <SocialShareModal
+        isOpen={shareModalOpen}
+        onClose={() => setShareModalOpen(false)}
+        user={user}
+        dailyEntry={dailyEntry}
+        snapshot={latestSnapshot}
+        antiGoals={antiGoals}
+        goals={goals}
+        initialContext={shareContext}
+        onToast={showToast}
       />
 
       {/* FLOATING TOAST NOTIFICATION */}

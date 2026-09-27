@@ -87,7 +87,8 @@ export const Big6GoalsTracker: React.FC<Big6GoalsTrackerProps> = ({
   antiGoals,
   onAddAntiGoal,
   onToggleAntiGoal,
-  onDeleteAntiGoal
+  onDeleteAntiGoal,
+  onOpenShare
 }) => {
   // Forward Goals state
   const [isAdding, setIsAdding] = useState(false);

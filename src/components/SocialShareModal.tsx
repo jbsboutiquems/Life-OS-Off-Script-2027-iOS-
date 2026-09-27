@@ -86,7 +86,7 @@ No toxic positivity. Living off-script.
 Pilot Designation: ${user.chaos_name || 'Unruly Sovereign'}
 Official Slogan: "${user.slogan || 'Boredom=Death'}"
 Word of the Year: "${user.word_of_the_year || 'Sovereignty'}"
-Core Manifesto: "${user.unruly_core_values?.[0] || 'Reject polite busywork'}"
+Chaos Mantra: "${user.chaos_mantra || 'An intention is not a promise.'}"
 
 "Not a vibe board. An operating system for sovereign living."
 #LifeOS2027 #OffScript #Identity`;
@@ -109,15 +109,15 @@ Committed to STOPPING:
 "A crossed-out obligation creates more peace than ten completed to-do items."
 #AntiGoals #SubtractiveProtocol #OffScript2027 #Boundaries`;
     } else if (selectedContext === 'diagnostic') {
-      const mirrorQuote = snapshot?.sarcastic_mirror
-        ? snapshot.sarcastic_mirror
+      const mirrorQuote = snapshot?.ai_feedback
+        ? snapshot.ai_feedback.slice(0, 150) + "..."
         : "You crave order, but the minute things are too tidy, you shake the snowglobe.";
       text = `🪞 MEI SASSY MIRROR DIAGNOSTIC · Life OS 2027
 " ${mirrorQuote} "
 
 Detected Mood: ${snapshot?.detected_mood || 'Hyper-Reflective'}
 Burnout Risk: ${snapshot?.burnout_risk || 'Low'}
-Big 5 Radar: Openness ${(snapshot?.big_five?.openness || 8.5) * 10}% · Neuroticism ${(snapshot?.big_five?.neuroticism || 4.2) * 10}%
+Big 5 Radar: Openness ${snapshot?.openness || 85}% · Neuroticism ${snapshot?.neuroticism || 42}%
 
 #MeiDiagnostic #SassyMirror #PsychologicalHonesty #OffScript2027`;
     }
@@ -297,14 +297,14 @@ Big 5 Radar: Openness ${(snapshot?.big_five?.openness || 8.5) * 10}% · Neurotic
     // Text inside box
     let quote = `"${dailyEntry.morning_intention || 'Today I am choosing steadiness over optimization.'}"`;
     if (selectedContext === 'identity') {
-      quote = `Word of the Year: "${user.word_of_the_year || 'Sovereignty'}"\nCore Rule: "${user.unruly_core_values?.[0] || 'Reject polite busywork and artificial deadlines.'}"`;
+      quote = `Word of the Year: "${user.word_of_the_year || 'Sovereignty'}"\nChaos Mantra: "${user.chaos_mantra || 'An intention is not a promise.'}"`;
     } else if (selectedContext === 'mantra') {
       quote = `"${dailyEntry.morning_intention || 'I refuse to perform enthusiasm for tasks that drain my soul.'}"`;
     } else if (selectedContext === 'antigoals') {
       const activeStopped = antiGoals.filter(a => a.is_completed).length;
       quote = `Commitments Quashed: ${activeStopped} Bad Habits Stopped.\n"A crossed-out obligation creates more peace than ten completed to-do items."`;
     } else if (selectedContext === 'diagnostic') {
-      quote = `"${snapshot?.sarcastic_mirror || 'You crave order, but the minute things are too tidy, you deliberately shake the snowglobe.'}"`;
+      quote = `"${snapshot?.ai_feedback ? snapshot.ai_feedback.slice(0, 120) + '...' : 'You crave order, but the minute things are too tidy, you deliberately shake the snowglobe.'}"`;
     }
 
     ctx.fillStyle = '#f8fafc';
